@@ -1,0 +1,6 @@
+{
+  "name": "FlowRight Encanamento",
+  "description": "Fábrica e distribuidora de materiais de blocos de concreto, blocos estruturais, vedação, canaletas e pisos intertravados com entrega paletizada para obras.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
