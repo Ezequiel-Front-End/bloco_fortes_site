@@ -232,7 +232,7 @@ export const MaterialsSection: React.FC<MaterialsSectionProps> = ({
                     <div
                       key={item.id}
                       onClick={() => setActiveIndex(index)}
-                      className={`shrink-0 w-[260px] sm:w-[280px] px-3.5 transition-all duration-500 cursor-pointer ${
+                      className={`shrink-0 w-[280px] px-3.5 transition-all duration-500 cursor-pointer ${
                         isActive
                           ? 'opacity-100 scale-105 z-20'
                           : isAdjacent
@@ -273,8 +273,8 @@ export const MaterialsSection: React.FC<MaterialsSectionProps> = ({
                           </button>
                         </div>
 
-                        {/* Product Image Area: 3D Block with 100% Transparent Background (No background color) */}
-                        <div className="relative w-full aspect-square max-h-52 flex items-center justify-center my-1 group bg-transparent">
+                        {/* Product Image Area: 3D Block com tamanho e espaçamento otimizados para responsividade */}
+                        <div className="relative w-full aspect-square max-h-52 flex items-center justify-center my-3 group bg-transparent">
                           <div className="w-full h-full flex items-center justify-center bg-transparent">
                             <BlockVisual
                               type={item.id}
@@ -299,7 +299,7 @@ export const MaterialsSection: React.FC<MaterialsSectionProps> = ({
 
                         {/* Mini Dots below Image */}
                         <div
-                          className="flex items-center justify-center gap-1.5 my-2"
+                          className="flex items-center justify-center gap-1.5 my-3"
                           aria-hidden="true"
                         >
                           <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
@@ -307,9 +307,9 @@ export const MaterialsSection: React.FC<MaterialsSectionProps> = ({
                           <span className="w-1.5 h-1.5 rounded-full bg-slate-800" />
                         </div>
 
-                        {/* Product Info: Title & Description */}
-                        <div className="space-y-1 text-left mt-1">
-                          <h3 className="text-base sm:text-lg font-extrabold text-white tracking-tight leading-snug line-clamp-1 group-hover:text-orange-400 transition-colors">
+                        {/* Product Info: Title & Description com alturas responsivas para mobile */}
+                        <div className="space-y-2 text-left mt-1">
+                          <h3 className="text-base sm:text-lg font-extrabold text-white tracking-tight leading-snug line-clamp-2 min-h-[2.75rem] group-hover:text-orange-400 transition-colors">
                             {item.name}
                           </h3>
 
@@ -323,7 +323,7 @@ export const MaterialsSection: React.FC<MaterialsSectionProps> = ({
                             )}
                           </div>
 
-                          <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed h-8">
+                          <p className="text-xs text-slate-400 line-clamp-3 leading-relaxed min-h-[2.5rem]">
                             {item.description}
                           </p>
 
@@ -432,17 +432,17 @@ export const MaterialsSection: React.FC<MaterialsSectionProps> = ({
         )}
 
         {/* Assurance Strip below carousel */}
-        <div className="mt-12 pt-8 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center sm:text-left text-xs text-slate-400">
-          <div className="flex items-center justify-center sm:justify-start gap-2.5">
-            <PackageCheck className="w-4 h-4 text-orange-500 shrink-0" aria-hidden="true" />
+        <div className="mt-12 pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-6 sm:gap-12 text-center text-xs sm:text-sm text-slate-400">
+          <div className="flex items-center justify-center gap-2.5">
+            <PackageCheck className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500 shrink-0" aria-hidden="true" />
             <span>Blocos Certificados ABNT NBR 6136 e 12118</span>
           </div>
-          <div className="flex items-center justify-center sm:justify-start gap-2.5">
-            <ShieldCheck className="w-4 h-4 text-orange-500 shrink-0" aria-hidden="true" />
+          <div className="flex items-center justify-center gap-2.5">
+            <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500 shrink-0" aria-hidden="true" />
             <span>Descarga Paletizada com Caminhão Munk</span>
           </div>
-          <div className="flex items-center justify-center sm:justify-start gap-2.5">
-            <Layers className="w-4 h-4 text-orange-500 shrink-0" aria-hidden="true" />
+          <div className="flex items-center justify-center gap-2.5">
+            <Layers className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500 shrink-0" aria-hidden="true" />
             <span>Preço Direto de Fábrica sem Intermediários</span>
           </div>
         </div>

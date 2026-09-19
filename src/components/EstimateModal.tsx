@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { X, CheckCircle2, AlertCircle, ShieldCheck, Clock, Phone } from 'lucide-react';
+import { X, CheckCircle2, AlertCircle, ShieldCheck, Clock, Phone, User, MapPin } from 'lucide-react';
 import { COMPANY_INFO, SERVICES_LIST } from '../data';
+import { CustomSelect } from './CustomSelect';
 
 interface EstimateModalProps {
   isOpen: boolean;
@@ -128,6 +129,16 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSuccess(true);
+      
+      const text = `Olá, gostaria de solicitar uma cotação rápida.
+*Nome:* ${formData.name}
+*Telefone:* ${formData.phone}
+*CEP:* ${formData.zipCode}
+*Material:* ${formData.service}
+*Código Promocional:* ${formData.appliedPromo || 'Nenhum'}`;
+      
+      const whatsappUrl = `https://wa.me/${COMPANY_INFO.phoneRaw}?text=${encodeURIComponent(text)}`;
+      window.open(whatsappUrl, '_blank');
     }, 600);
   };
 
@@ -171,7 +182,7 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
             </h2>
 
             <p id="estimate-modal-desc" className="text-sm text-slate-300 max-w-sm mx-auto leading-relaxed">
-              Obrigado, <strong className="text-white">{formData.name}</strong>. Nossa equipe comercial e técnica da FlowBlocos entrará em contato em breve pelo telefone <strong className="text-white">{formData.phone}</strong> para apresentar a proposta e condições de frete.
+              Obrigado, <strong className="text-white">{formData.name}</strong>. Nossa equipe comercial e técnica da BLOCO FORTE entrará em contato em breve pelo telefone <strong className="text-white">{formData.phone}</strong> para apresentar a proposta e condições de frete.
             </p>
 
             {formData.appliedPromo && (
@@ -220,21 +231,26 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
                 <label htmlFor="modal-name" className="block text-xs font-semibold text-slate-300 mb-1">
                   Nome / Razão Social <span className="text-orange-500">*</span>
                 </label>
-                <input
-                  ref={firstInputRef}
-                  id="modal-name"
-                  type="text"
-                  required
-                  placeholder="ex: Construtora Aliança / Rodrigo"
-                  value={formData.name}
-                  onChange={(e) => {
-                    setFormData({ ...formData, name: e.target.value });
-                    if (errors.name) setErrors({ ...errors, name: '' });
-                  }}
-                  aria-invalid={!!errors.name}
-                  aria-describedby={errors.name ? 'modal-name-err' : undefined}
-                  className="w-full bg-[#080E18] border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors"
-                />
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <User className="h-4 w-4 text-slate-500" aria-hidden="true" />
+                  </div>
+                  <input
+                    ref={firstInputRef}
+                    id="modal-name"
+                    type="text"
+                    required
+                    placeholder="ex: Construtora Aliança / Rodrigo"
+                    value={formData.name}
+                    onChange={(e) => {
+                      setFormData({ ...formData, name: e.target.value });
+                      if (errors.name) setErrors({ ...errors, name: '' });
+                    }}
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? 'modal-name-err' : undefined}
+                    className="w-full bg-[#080E18] border border-slate-700 rounded-lg pl-10 pr-3.5 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors"
+                  />
+                </div>
                 {errors.name && (
                   <p id="modal-name-err" className="text-xs text-rose-400 mt-1 flex items-center gap-1">
                     <AlertCircle className="w-3 h-3" /> {errors.name}
@@ -248,20 +264,25 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
                   <label htmlFor="modal-phone" className="block text-xs font-semibold text-slate-300 mb-1">
                     Telefone / WhatsApp <span className="text-orange-500">*</span>
                   </label>
-                  <input
-                    id="modal-phone"
-                    type="tel"
-                    required
-                    placeholder="(11) 98765-4321"
-                    value={formData.phone}
-                    onChange={(e) => {
-                      setFormData({ ...formData, phone: e.target.value });
-                      if (errors.phone) setErrors({ ...errors, phone: '' });
-                    }}
-                    aria-invalid={!!errors.phone}
-                    aria-describedby={errors.phone ? 'modal-phone-err' : undefined}
-                    className="w-full bg-[#080E18] border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors"
-                  />
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Phone className="h-4 w-4 text-slate-500" aria-hidden="true" />
+                    </div>
+                    <input
+                      id="modal-phone"
+                      type="tel"
+                      required
+                      placeholder="(11) 98765-4321"
+                      value={formData.phone}
+                      onChange={(e) => {
+                        setFormData({ ...formData, phone: e.target.value });
+                        if (errors.phone) setErrors({ ...errors, phone: '' });
+                      }}
+                      aria-invalid={!!errors.phone}
+                      aria-describedby={errors.phone ? 'modal-phone-err' : undefined}
+                      className="w-full bg-[#080E18] border border-slate-700 rounded-lg pl-10 pr-3.5 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors"
+                    />
+                  </div>
                   {errors.phone && (
                     <p id="modal-phone-err" className="text-xs text-rose-400 mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" /> {errors.phone}
@@ -273,20 +294,25 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
                   <label htmlFor="modal-zip" className="block text-xs font-semibold text-slate-300 mb-1">
                     CEP da Obra <span className="text-orange-500">*</span>
                   </label>
-                  <input
-                    id="modal-zip"
-                    type="text"
-                    required
-                    placeholder="ex: 01310-100"
-                    value={formData.zipCode}
-                    onChange={(e) => {
-                      setFormData({ ...formData, zipCode: e.target.value });
-                      if (errors.zipCode) setErrors({ ...errors, zipCode: '' });
-                    }}
-                    aria-invalid={!!errors.zipCode}
-                    aria-describedby={errors.zipCode ? 'modal-zip-err' : undefined}
-                    className="w-full bg-[#080E18] border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors"
-                  />
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <MapPin className="h-4 w-4 text-slate-500" aria-hidden="true" />
+                    </div>
+                    <input
+                      id="modal-zip"
+                      type="text"
+                      required
+                      placeholder="ex: 01310-100"
+                      value={formData.zipCode}
+                      onChange={(e) => {
+                        setFormData({ ...formData, zipCode: e.target.value });
+                        if (errors.zipCode) setErrors({ ...errors, zipCode: '' });
+                      }}
+                      aria-invalid={!!errors.zipCode}
+                      aria-describedby={errors.zipCode ? 'modal-zip-err' : undefined}
+                      className="w-full bg-[#080E18] border border-slate-700 rounded-lg pl-10 pr-3.5 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors"
+                    />
+                  </div>
                   {errors.zipCode && (
                     <p id="modal-zip-err" className="text-xs text-rose-400 mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" /> {errors.zipCode}
@@ -300,39 +326,19 @@ export const EstimateModal: React.FC<EstimateModalProps> = ({
                 <label htmlFor="modal-service" className="block text-xs font-semibold text-slate-300 mb-1">
                   Material ou Bloco Desejado
                 </label>
-                <select
-                  id="modal-service"
+                <CustomSelect
                   value={formData.service}
-                  onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                  className="w-full bg-[#080E18] border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors"
-                >
-                  {formData.service &&
-                    !SERVICES_LIST.some((s) => s.title === formData.service) && (
-                      <option value={formData.service} className="bg-slate-900 text-orange-400 font-semibold">
-                        {formData.service}
-                      </option>
-                    )}
-                  {SERVICES_LIST.map((svc) => (
-                    <option key={svc.id} value={svc.title} className="bg-slate-900 text-white">
-                      {svc.title}
-                    </option>
-                  ))}
-                  <option value="Blocos Estruturais 14x19x39" className="bg-slate-900 text-white">
-                    Blocos Estruturais 14x19x39 (4.5 a 12 MPa)
-                  </option>
-                  <option value="Blocos de Vedação 09x19x39 / 14x19x39" className="bg-slate-900 text-white">
-                    Blocos de Vedação Convencionais
-                  </option>
-                  <option value="Canaletas Estruturais em 'U'" className="bg-slate-900 text-white">
-                    Canaletas Estruturais em 'U'
-                  </option>
-                  <option value="Pisos Intertravados Paver" className="bg-slate-900 text-white">
-                    Pisos Intertravados de Concreto
-                  </option>
-                  <option value="Carga Fechada Atacado com Munk" className="bg-slate-900 text-white">
-                    Carga Fechada Atacado com Munk
-                  </option>
-                </select>
+                  onChange={(val) => setFormData({ ...formData, service: val })}
+                  options={[
+                    ...(formData.service && !SERVICES_LIST.some((s) => s.title === formData.service) && !["Blocos Estruturais 14x19x39", "Blocos de Vedação 09x19x39 / 14x19x39", "Canaletas Estruturais em 'U'", "Pisos Intertravados Paver", "Carga Fechada Atacado com Munk"].includes(formData.service) ? [{ value: formData.service, label: formData.service }] : []),
+                    ...SERVICES_LIST.map((svc) => ({ value: svc.title, label: svc.title })),
+                    { value: "Blocos Estruturais 14x19x39", label: "Blocos Estruturais 14x19x39 (4.5 a 12 MPa)" },
+                    { value: "Blocos de Vedação 09x19x39 / 14x19x39", label: "Blocos de Vedação Convencionais" },
+                    { value: "Canaletas Estruturais em 'U'", label: "Canaletas Estruturais em 'U'" },
+                    { value: "Pisos Intertravados Paver", label: "Pisos Intertravados de Concreto" },
+                    { value: "Carga Fechada Atacado com Munk", label: "Carga Fechada Atacado com Munk" },
+                  ]}
+                />
               </div>
 
               {/* Promo Code if any */}

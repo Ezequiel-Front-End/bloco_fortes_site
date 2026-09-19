@@ -11,10 +11,12 @@ import {
   Send,
   Calendar,
   Sparkles,
-  MessageSquare
+  MessageSquare,
+  User
 } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { COMPANY_INFO, SERVICES_LIST } from '../data';
+import { CustomSelect } from './CustomSelect';
 
 interface ContactSectionProps {
   onServiceBooked?: (details: any) => void;
@@ -65,6 +67,19 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onServiceBooked 
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
+      
+      const text = `Olá, gostaria de solicitar uma cotação.
+*Nome:* ${formData.name}
+*Telefone:* ${formData.phone}
+*Email:* ${formData.email || 'Não informado'}
+*Material:* ${formData.service}
+*Prazo:* ${formData.urgency}
+*Código Promocional:* ${formData.promoCode || 'Nenhum'}
+*Detalhes:* ${formData.message || 'Nenhum'}`;
+      
+      const whatsappUrl = `https://wa.me/${COMPANY_INFO.phoneRaw}?text=${encodeURIComponent(text)}`;
+      window.open(whatsappUrl, '_blank');
+
       if (onServiceBooked) {
         onServiceBooked(formData);
       }
@@ -139,7 +154,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onServiceBooked 
             {/* Quick Contact Box */}
             <div className="bg-[#0E1A2E]/90 border border-slate-700/80 rounded-2xl p-6 sm:p-7 shadow-xl space-y-6">
               <h3 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-orange-500" aria-hidden="true" />
+                <MessageSquare className="w-5 h-5 text-orange-500" aria-hidden="true" />
                 <span>Central de Vendas &amp; Suporte</span>
               </h3>
 
@@ -220,7 +235,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onServiceBooked 
             <div className="bg-[#0E1A2E]/50 border border-slate-800 rounded-2xl p-5 text-xs text-slate-300 space-y-3">
               <div className="flex items-center gap-2 font-bold text-white text-sm">
                 <ShieldCheck className="w-4 h-4 text-orange-500" aria-hidden="true" />
-                <span>Compromisso de Fábrica FlowBlocos</span>
+                <span>Compromisso de Fábrica BLOCO FORTE</span>
               </div>
               <ul className="space-y-2 text-slate-400">
                 <li className="flex items-center gap-2">
@@ -310,25 +325,30 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onServiceBooked 
                       >
                         Nome / Construtora <span className="text-orange-500" aria-hidden="true">*</span>
                       </label>
-                      <input
-                        id="contact-name"
-                        name="name"
-                        type="text"
-                        required
-                        autoComplete="name"
-                        placeholder="ex: Engenharia Silva / Carlos"
-                        value={formData.name}
-                        onChange={(e) => {
-                          setFormData({ ...formData, name: e.target.value });
-                          if (formErrors.name) setFormErrors({ ...formErrors, name: '' });
-                        }}
-                        aria-required="true"
-                        aria-invalid={!!formErrors.name}
-                        aria-describedby={formErrors.name ? 'contact-name-error' : undefined}
-                        className={`w-full bg-[#080E18] border ${
-                          formErrors.name ? 'border-rose-500 focus:ring-rose-400' : 'border-slate-700/80 focus:border-orange-500'
-                        } text-white rounded-lg px-3.5 py-2.5 text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors`}
-                      />
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <User className="h-4 w-4 text-slate-500" aria-hidden="true" />
+                        </div>
+                        <input
+                          id="contact-name"
+                          name="name"
+                          type="text"
+                          required
+                          autoComplete="name"
+                          placeholder="ex: Engenharia Silva / Carlos"
+                          value={formData.name}
+                          onChange={(e) => {
+                            setFormData({ ...formData, name: e.target.value });
+                            if (formErrors.name) setFormErrors({ ...formErrors, name: '' });
+                          }}
+                          aria-required="true"
+                          aria-invalid={!!formErrors.name}
+                          aria-describedby={formErrors.name ? 'contact-name-error' : undefined}
+                          className={`w-full bg-[#080E18] border ${
+                            formErrors.name ? 'border-rose-500 focus:ring-rose-400' : 'border-slate-700/80 focus:border-orange-500'
+                          } text-white rounded-lg pl-10 pr-3.5 py-2.5 text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors`}
+                        />
+                      </div>
                       {formErrors.name && (
                         <p id="contact-name-error" className="mt-1 text-xs text-rose-400 flex items-center gap-1">
                           <AlertCircle className="w-3 h-3 shrink-0" aria-hidden="true" />
@@ -345,25 +365,30 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onServiceBooked 
                       >
                         Telefone / WhatsApp <span className="text-orange-500" aria-hidden="true">*</span>
                       </label>
-                      <input
-                        id="contact-phone"
-                        name="phone"
-                        type="tel"
-                        required
-                        autoComplete="tel"
-                        placeholder="(11) 98765-4321"
-                        value={formData.phone}
-                        onChange={(e) => {
-                          setFormData({ ...formData, phone: e.target.value });
-                          if (formErrors.phone) setFormErrors({ ...formErrors, phone: '' });
-                        }}
-                        aria-required="true"
-                        aria-invalid={!!formErrors.phone}
-                        aria-describedby={formErrors.phone ? 'contact-phone-error' : undefined}
-                        className={`w-full bg-[#080E18] border ${
-                          formErrors.phone ? 'border-rose-500 focus:ring-rose-400' : 'border-slate-700/80 focus:border-orange-500'
-                        } text-white rounded-lg px-3.5 py-2.5 text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors`}
-                      />
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <Phone className="h-4 w-4 text-slate-500" aria-hidden="true" />
+                        </div>
+                        <input
+                          id="contact-phone"
+                          name="phone"
+                          type="tel"
+                          required
+                          autoComplete="tel"
+                          placeholder="(11) 98765-4321"
+                          value={formData.phone}
+                          onChange={(e) => {
+                            setFormData({ ...formData, phone: e.target.value });
+                            if (formErrors.phone) setFormErrors({ ...formErrors, phone: '' });
+                          }}
+                          aria-required="true"
+                          aria-invalid={!!formErrors.phone}
+                          aria-describedby={formErrors.phone ? 'contact-phone-error' : undefined}
+                          className={`w-full bg-[#080E18] border ${
+                            formErrors.phone ? 'border-rose-500 focus:ring-rose-400' : 'border-slate-700/80 focus:border-orange-500'
+                          } text-white rounded-lg pl-10 pr-3.5 py-2.5 text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors`}
+                        />
+                      </div>
                       {formErrors.phone && (
                         <p id="contact-phone-error" className="mt-1 text-xs text-rose-400 flex items-center gap-1">
                           <AlertCircle className="w-3 h-3 shrink-0" aria-hidden="true" />
@@ -383,23 +408,28 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onServiceBooked 
                       >
                         E-mail <span className="text-slate-500 text-[11px]">(para envio da proposta)</span>
                       </label>
-                      <input
-                        id="contact-email"
-                        name="email"
-                        type="email"
-                        autoComplete="email"
-                        placeholder="contato@construtora.com.br"
-                        value={formData.email}
-                        onChange={(e) => {
-                          setFormData({ ...formData, email: e.target.value });
-                          if (formErrors.email) setFormErrors({ ...formErrors, email: '' });
-                        }}
-                        aria-invalid={!!formErrors.email}
-                        aria-describedby={formErrors.email ? 'contact-email-error' : undefined}
-                        className={`w-full bg-[#080E18] border ${
-                          formErrors.email ? 'border-rose-500 focus:ring-rose-400' : 'border-slate-700/80 focus:border-orange-500'
-                        } text-white rounded-lg px-3.5 py-2.5 text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors`}
-                      />
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <Mail className="h-4 w-4 text-slate-500" aria-hidden="true" />
+                        </div>
+                        <input
+                          id="contact-email"
+                          name="email"
+                          type="email"
+                          autoComplete="email"
+                          placeholder="contato@construtora.com.br"
+                          value={formData.email}
+                          onChange={(e) => {
+                            setFormData({ ...formData, email: e.target.value });
+                            if (formErrors.email) setFormErrors({ ...formErrors, email: '' });
+                          }}
+                          aria-invalid={!!formErrors.email}
+                          aria-describedby={formErrors.email ? 'contact-email-error' : undefined}
+                          className={`w-full bg-[#080E18] border ${
+                            formErrors.email ? 'border-rose-500 focus:ring-rose-400' : 'border-slate-700/80 focus:border-orange-500'
+                          } text-white rounded-lg pl-10 pr-3.5 py-2.5 text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors`}
+                        />
+                      </div>
                       {formErrors.email && (
                         <p id="contact-email-error" className="mt-1 text-xs text-rose-400 flex items-center gap-1">
                           <AlertCircle className="w-3 h-3 shrink-0" aria-hidden="true" />
@@ -416,32 +446,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onServiceBooked 
                       >
                         Prazo de Entrega Desejado
                       </label>
-                      <div className="relative">
-                        <select
-                          id="contact-urgency"
-                          name="urgency"
-                          value={formData.urgency}
-                          onChange={(e) => setFormData({ ...formData, urgency: e.target.value })}
-                          className="w-full bg-[#080E18] border border-slate-700/80 focus:border-orange-500 text-white rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 appearance-none pr-10 transition-colors"
-                        >
-                          <option value="Entrega Imediata (Pronta Entrega)" className="bg-slate-900 text-amber-300 font-semibold">
-                            ⚡ Entrega Imediata (Pronta Entrega)
-                          </option>
-                          <option value="Programada para esta Semana" className="bg-slate-900 text-white">
-                            📅 Programada para esta Semana
-                          </option>
-                          <option value="Programada para os Próximos 15-30 dias" className="bg-slate-900 text-white">
-                            🏗️ Programada para os Próximos 15-30 dias
-                          </option>
-                          <option value="Apenas Orçamento / Fase de Projeto" className="bg-slate-900 text-white">
-                            💬 Apenas Cotação / Fase de Planejamento
-                          </option>
-                        </select>
-                        <ChevronDown
-                          className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
-                          aria-hidden="true"
-                        />
-                      </div>
+                      <CustomSelect
+                        value={formData.urgency}
+                        onChange={(val) => setFormData({ ...formData, urgency: val })}
+                        options={[
+                          { value: "Entrega Imediata (Pronta Entrega)", label: "⚡ Entrega Imediata (Pronta Entrega)" },
+                          { value: "Programada para esta Semana", label: "📅 Programada para esta Semana" },
+                          { value: "Programada para os Próximos 15-30 dias", label: "🏗️ Programada para os Próximos 15-30 dias" },
+                          { value: "Apenas Orçamento / Fase de Projeto", label: "💬 Apenas Cotação / Fase de Planejamento" },
+                        ]}
+                      />
                     </div>
                   </div>
 
@@ -455,55 +469,24 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onServiceBooked 
                       >
                         Material / Serviço Desejado <span className="text-orange-500" aria-hidden="true">*</span>
                       </label>
-                      <div className="relative">
-                        <select
-                          id="contact-service"
-                          name="service"
-                          required
-                          value={formData.service}
-                          onChange={(e) => {
-                            setFormData({ ...formData, service: e.target.value });
-                            if (formErrors.service) setFormErrors({ ...formErrors, service: '' });
-                          }}
-                          aria-required="true"
-                          aria-invalid={!!formErrors.service}
-                          aria-describedby={formErrors.service ? 'contact-service-error' : undefined}
-                          className={`w-full bg-[#080E18] border ${
-                            formErrors.service ? 'border-rose-500 focus:ring-rose-400' : 'border-slate-700/80 focus:border-orange-500'
-                          } text-white rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 appearance-none pr-10 transition-colors`}
-                        >
-                          <option value="" disabled className="bg-slate-900 text-slate-400">
-                            Selecione o tipo de bloco ou serviço...
-                          </option>
-                          {SERVICES_LIST.map((svc) => (
-                            <option key={svc.id} value={svc.title} className="bg-slate-900 text-white">
-                              {svc.title} ({svc.startingPrice})
-                            </option>
-                          ))}
-                          <option value="Blocos Estruturais 14x19x39" className="bg-slate-900 text-white">
-                            Blocos Estruturais 14x19x39 (4.5 a 12 MPa)
-                          </option>
-                          <option value="Blocos de Vedação 09x19x39 / 14x19x39" className="bg-slate-900 text-white">
-                            Blocos de Vedação Convencionais
-                          </option>
-                          <option value="Canaletas Estruturais em 'U'" className="bg-slate-900 text-white">
-                            Canaletas Estruturais em 'U' e 'J'
-                          </option>
-                          <option value="Piso Intertravado Paver 16 Faces" className="bg-slate-900 text-white">
-                            Pisos Intertravados de Concreto
-                          </option>
-                          <option value="Carga Fechada de Blocos com Munk" className="bg-slate-900 text-white">
-                            Carga Fechada / Atacado com Descarregamento
-                          </option>
-                          <option value="Outro / Cotação Completa de Projeto" className="bg-slate-900 text-white">
-                            Outro / Cotação Completa de Projeto
-                          </option>
-                        </select>
-                        <ChevronDown
-                          className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
-                          aria-hidden="true"
-                        />
-                      </div>
+                      <CustomSelect
+                        value={formData.service}
+                        onChange={(val) => {
+                          setFormData({ ...formData, service: val });
+                          if (formErrors.service) setFormErrors({ ...formErrors, service: '' });
+                        }}
+                        error={!!formErrors.service}
+                        placeholder="Selecione o tipo de bloco ou serviço..."
+                        options={[
+                          ...SERVICES_LIST.map((svc) => ({ value: svc.title, label: `${svc.title} (${svc.startingPrice})` })),
+                          { value: "Blocos Estruturais 14x19x39", label: "Blocos Estruturais 14x19x39 (4.5 a 12 MPa)" },
+                          { value: "Blocos de Vedação 09x19x39 / 14x19x39", label: "Blocos de Vedação Convencionais" },
+                          { value: "Canaletas Estruturais em 'U'", label: "Canaletas Estruturais em 'U' e 'J'" },
+                          { value: "Piso Intertravado Paver 16 Faces", label: "Pisos Intertravados de Concreto" },
+                          { value: "Carga Fechada de Blocos com Munk", label: "Carga Fechada / Atacado com Descarregamento" },
+                          { value: "Outro / Cotação Completa de Projeto", label: "Outro / Cotação Completa de Projeto" },
+                        ]}
+                      />
                       {formErrors.service && (
                         <p id="contact-service-error" className="mt-1 text-xs text-rose-400 flex items-center gap-1">
                           <AlertCircle className="w-3 h-3 shrink-0" aria-hidden="true" />

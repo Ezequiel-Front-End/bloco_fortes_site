@@ -1,5 +1,5 @@
 /**
- * Type definitions for FlowBlocos - Block Materials & Manufacturing
+ * Type definitions for BLOCO FORTE - Block Materials & Manufacturing
  */
 
 export interface ServiceItem {

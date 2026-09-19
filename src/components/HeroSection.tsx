@@ -26,22 +26,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     <section
       id="home"
       aria-label="Fábrica de Blocos de Concreto & Materiais de Construção - Destaque"
-      className="relative min-h-[480px] lg:min-h-[540px] bg-[#0B1320] text-white overflow-hidden flex items-center pt-6 pb-12 lg:py-16"
+      className="relative min-h-[480px] lg:min-h-[540px] bg-[#0B1320] text-white overflow-hidden flex items-center pt-32 lg:pt-40 pb-12 lg:pb-16"
     >
-      {/* Background Image with optimized accessibility overlay */}
+      {/* Background Image with dark overlay (parede em construção) */}
       <div className="absolute inset-0 pointer-events-none select-none z-0">
-        <img
-          src="https://images.unsplash.com/photo-1541888946425-d0fbb186156a?auto=format&fit=crop&w=1600&q=80"
-          alt="Canteiro de obras com alvenaria de blocos de concreto estruturais alinhados e paletes de materiais"
-          className="w-full h-full object-cover object-center sm:object-[center_35%] opacity-30 filter brightness-90 contrast-105"
-          width={1600}
-          height={900}
-          loading="eager"
-          decoding="async"
+        <div 
+          className="absolute inset-0 bg-[url('/hero-bg.jpg')] bg-fixed bg-cover bg-center opacity-40 filter brightness-75 contrast-110" 
+          aria-hidden="true" 
         />
-        {/* Multilayer gradient matching the dark blue screenshot ambience */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B1320] via-[#0B1320]/95 to-[#0B1320]/75" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B1320] via-transparent to-[#0B1320]/80" />
+        {/* Overlay escuro elegante */}
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0B1320] via-[#0B1320]/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0B1320] via-transparent to-[#0B1320]/60" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">

@@ -26,7 +26,7 @@ export const WelcomeSection: React.FC = () => {
             <div className="inline-flex items-center gap-2">
               <span className="w-2.5 h-1 bg-orange-500 rounded-sm" aria-hidden="true" />
               <span className="text-orange-500 text-xs font-bold tracking-wider uppercase">
-                Bem-vindo à FlowBlocos Materiais
+                Bem-vindo à BLOCO FORTE Materiais
               </span>
             </div>
 
@@ -100,7 +100,7 @@ export const WelcomeSection: React.FC = () => {
               {/* Main Photo: Concrete blocks and modern masonry construction */}
               <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border border-slate-700/60 bg-slate-900 aspect-[4/3] sm:aspect-[16/11]">
                 <img
-                  src="https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=1000&q=80"
+                  src="/welcome-img.jpg"
                   alt="Alvenaria de blocos de concreto estruturais com juntas perfeitamente niveladas e canteiro de obras organizado"
                   className="w-full h-full object-cover object-center filter contrast-105 hover:scale-105 transition-transform duration-500"
                   loading="lazy"

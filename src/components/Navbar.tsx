@@ -10,8 +10,18 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimateModal, onSelectService }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Handle scroll for sticky animation
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -39,30 +49,36 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimateModal, onSelectSer
     <nav
       id="main-navigation"
       aria-label="Navegação principal da fábrica de blocos"
-      className="w-full bg-[#0B1320]/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-800/80 transition-shadow"
+      className={`w-full fixed top-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-[#0B1320]/95 backdrop-blur-md border-b border-slate-700/80 shadow-md py-0'
+          : 'bg-transparent border-b border-transparent py-2'
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? 'h-16' : 'h-24'}`}>
           {/* Brand Logo for Block Materials Factory */}
           <a
             id="brand-logo"
             href="#home"
             className="flex items-center gap-2.5 group focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:outline-none rounded-lg p-1"
-            aria-label="FlowBlocos Materiais - Voltar ao início"
+            aria-label="BLOCO FORTE Materiais - Voltar ao início"
           >
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-slate-900 border border-orange-500/40 text-orange-500 group-hover:border-orange-500 transition-colors shadow-sm">
-              <Blocks className="w-5 h-5 text-orange-500" aria-hidden="true" />
-              <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-orange-500 rounded-full border border-slate-950" />
+            <div className={`relative flex items-center justify-center rounded-xl bg-slate-900 border border-orange-500/40 text-orange-500 group-hover:border-orange-500 transition-all shadow-sm ${isScrolled ? 'w-8 h-8' : 'w-10 h-10'}`}>
+              <Blocks className={`${isScrolled ? 'w-4 h-4' : 'w-5 h-5'} text-orange-500 transition-all`} aria-hidden="true" />
+              <div className={`absolute -bottom-0.5 -right-0.5 bg-orange-500 rounded-full border border-slate-950 ${isScrolled ? 'w-2 h-2' : 'w-2.5 h-2.5'}`} />
             </div>
             <div className="flex flex-col">
-              <div className="flex items-center leading-none">
-                <span className="font-extrabold text-xl sm:text-2xl text-white tracking-tight">
-                  FlowBlocos
+              <div className="flex items-center leading-none tracking-tight">
+                <span className={`font-black text-white transition-all ${isScrolled ? 'text-lg sm:text-xl' : 'text-xl sm:text-2xl'}`}>
+                  BLOCO
                 </span>
-                <span className="text-orange-500 text-2xl font-extrabold leading-none">.</span>
+                <span className={`font-black text-orange-500 ml-1.5 transition-all ${isScrolled ? 'text-lg sm:text-xl' : 'text-xl sm:text-2xl'}`}>
+                  FORTE
+                </span>
               </div>
-              <span className="text-[10px] uppercase font-semibold text-slate-400 tracking-[0.22em] mt-0.5">
-                Materiais de Blocos
+              <span className={`uppercase font-bold text-slate-300 tracking-[0.1em] mt-0.5 transition-all overflow-hidden ${isScrolled ? 'text-[8px] h-0 opacity-0' : 'text-[10px] h-3 opacity-100'}`}>
+                Construção Inteligente
               </span>
             </div>
           </a>

@@ -31,9 +31,19 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
     <section
       id="services"
       aria-labelledby="services-heading"
-      className="py-16 sm:py-24 bg-[#0B1320] text-white relative"
+      className="py-16 sm:py-24 bg-[#0B1320] text-white relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Background Image with dark overlay (Fábrica / Empresa) */}
+      <div className="absolute inset-0 pointer-events-none select-none z-0">
+        <div 
+          className="absolute inset-0 bg-[url('/factory-bg.jpg')] bg-fixed bg-cover bg-center opacity-30 filter brightness-75 contrast-110" 
+          aria-hidden="true" 
+        />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0B1320] via-transparent to-[#0B1320]/80" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: Factory Logistics Photo with "12+ Anos de Fábrica" Badge */}
           <motion.div
@@ -47,8 +57,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               {/* Main Photo: Concrete blocks manufacturing and logistics */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-700/60 bg-slate-900 aspect-[4/3] sm:aspect-[16/11]">
                 <img
-                  src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1000&q=80"
-                  alt="Descarga e manuseio de materiais de blocos de concreto e canteiro de obras com equipamentos modernos"
+                  src="/services-img.jpg"
+                  alt="Caminhão munk entregando paletes de blocos de concreto estruturais na obra"
                   className="w-full h-full object-cover object-center filter contrast-105 hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                   decoding="async"

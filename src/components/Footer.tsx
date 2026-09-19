@@ -40,7 +40,7 @@ export const Footer: React.FC<FooterProps> = () => {
                 <Blocks className="w-4 h-4 text-orange-500" aria-hidden="true" />
               </div>
               <div className="flex items-center">
-                <span className="font-extrabold text-lg text-white">FlowBlocos</span>
+                <span className="font-extrabold text-lg text-white">BLOCO FORTE</span>
                 <span className="text-orange-500 text-lg font-black">.</span>
               </div>
             </div>
@@ -61,7 +61,7 @@ export const Footer: React.FC<FooterProps> = () => {
                   href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="FlowBlocos no Facebook"
+                  aria-label="BLOCO FORTE no Facebook"
                   className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-orange-500 hover:border-orange-500/40 transition-colors focus-visible:ring-2 focus-visible:ring-orange-500"
                 >
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -73,7 +73,7 @@ export const Footer: React.FC<FooterProps> = () => {
                   href="https://twitter.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="FlowBlocos no Twitter"
+                  aria-label="BLOCO FORTE no Twitter"
                   className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-orange-500 hover:border-orange-500/40 transition-colors focus-visible:ring-2 focus-visible:ring-orange-500"
                 >
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -85,7 +85,7 @@ export const Footer: React.FC<FooterProps> = () => {
                   href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="FlowBlocos no Instagram"
+                  aria-label="BLOCO FORTE no Instagram"
                   className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-orange-500 hover:border-orange-500/40 transition-colors focus-visible:ring-2 focus-visible:ring-orange-500"
                 >
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -97,7 +97,7 @@ export const Footer: React.FC<FooterProps> = () => {
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="FlowBlocos no LinkedIn"
+                  aria-label="BLOCO FORTE no LinkedIn"
                   className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-orange-500 hover:border-orange-500/40 transition-colors focus-visible:ring-2 focus-visible:ring-orange-500"
                 >
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -185,7 +185,7 @@ export const Footer: React.FC<FooterProps> = () => {
       {/* Bottom Bar with Back to Top */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs border-t border-slate-800/80">
         <div>
-          &copy; {new Date().getFullYear()} FlowBlocos Materiais &amp; Fábrica de Blocos de Concreto. Todos os direitos reservados.
+          &copy; {new Date().getFullYear()} BLOCO FORTE Materiais &amp; Fábrica de Blocos de Concreto. Todos os direitos reservados.
         </div>
         <button
           type="button"
